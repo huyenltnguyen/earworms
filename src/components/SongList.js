@@ -4,7 +4,7 @@ import Song from './Song';
 const SongList = (props) => {
   const songNodes = props.data.map((song) => {
     return (
-      <Song key={ song.id } title={ song.title } artist={ song.artist } url={ song.url } />
+      <Song key={ song._id } title={ song.title } artist={ song.artist } url={ song.url } />
     );
   });
 
