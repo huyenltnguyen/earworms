@@ -24,6 +24,17 @@ class App extends Component {
       });
   }
 
+  handleSongDelete = (songId) => {
+    axios.delete(`${this.props.url}/${songId}`)
+      .then((res) => console.log('Song deleted.'))
+      .catch((err) => console.log(err));
+  }
+
+  handleSongUpdate = (songId, updatedSong) => {
+    axios.put(`${this.props.url}/${songId}`, updatedSong)
+      .catch((err) => console.log(err));
+  }
+
   loadSongsFromServer = () => {
     axios.get(this.props.url)
       .then((res) => this.setState({ data: res.data }));
@@ -42,7 +53,10 @@ class App extends Component {
     return (
       <div className="App">
         <h1>My Earworms App</h1>
-        <SongList data={ this.state.data } />
+        <SongList
+          data={ this.state.data }
+          onSongDelete={ this.handleSongDelete }
+          onSongUpdate={ this.handleSongUpdate } />
         <SongForm onSongSubmit={ this.handleSongSubmit } />
       </div>
     );

@@ -39,4 +39,26 @@ router.route('/songs')
     song.save((err, newSong) => err ? res.send(err) : res.json({ message: 'Added new song!' }));
   });
 
+router.route('/songs/:song_id')
+  // UPDATE ROUTE
+  .put((req, res) => {
+    Song.findById(req.params.song_id, (err, foundSong) => {
+      if (err) {
+        res.send(err);
+      } else {
+        req.body.title ? foundSong.title = req.body.title : null;
+        req.body.artist ? foundSong.artist = req.body.artist : null;
+        req.body.url ? foundSong.url = req.body.url : null;
+
+        foundSong.save((err, updatedSong) => err ? res.send(err) : res.json({ message: 'Song updated!' }));
+      }
+    });
+  })
+  // DELETE ROUTE
+  .delete((req, res) => {
+    Song.findByIdAndRemove(req.params.song_id, (err, foundSong) => {
+      err ? res.send(err) : res.json({ message: 'Song deleted!' });
+    });
+  });
+
 app.listen(PORT, () => console.log(`API is running on port ${PORT}`));
