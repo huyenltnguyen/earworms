@@ -1,5 +1,63 @@
 body {
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url('/img/william-iven-17136-unsplash.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  padding: 0;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/*---------------------------*/
+/*       LOADING TEXT        */
+/*---------------------------*/
+.loading-text {
+  color: #f8f8f8;
+  font-size: 24px;
+}
+
+/*---------------------------*/
+/*      SONG COMPONENT       */
+/*---------------------------*/
+.edit-btn,
+.delete-btn {
+  margin: 6px 0;
+}
+
+.edit-btn {
+  margin-right: 5px;
+}
+
+/*---------------------------*/
+/*      FOOTER COMPONENT     */
+/*---------------------------*/
+.Footer {
+  color: #f8f8f8;
+  align-self: flex-end;
+}
+
+.Footer a {
+  color: #f8f8f8;
+  text-decoration: underline;
+}
+
+.Footer a:hover {
+  color: #e3e3e3;
 }

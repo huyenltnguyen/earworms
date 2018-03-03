@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row } from 'react-bootstrap';
 import Song from './Song';
 
 const SongList = (props) => {
@@ -16,9 +17,9 @@ const SongList = (props) => {
   });
 
   return (
-    <div id='SongList'>
+    <Row className="SongList">
       { songNodes }
-    </div>
+    </Row>
   );
 };
 

@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SongList from './SongList';
 import SongForm from './SongForm';
+import Footer from './Footer';
+import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      openAddSongModal: false
     }
+  }
+
+  handleOpenAddSongModal = () => {
+    this.setState({ openAddSongModal: true });
+  }
+
+  handleCloseAddSongModal = () => {
+    this.setState({ openAddSongModal: false });
   }
 
   handleSongSubmit = (song) => {
@@ -45,20 +56,42 @@ class App extends Component {
     setInterval(this.loadSongsFromServer, this.props.pollInterval);
   }
 
-  componentWillUnmount() {
-    this.req.abort();
-  }
-
   render() {
+
+
     return (
-      <div className="App">
-        <h1>My Earworms App</h1>
-        <SongList
-          data={ this.state.data }
-          onSongDelete={ this.handleSongDelete }
-          onSongUpdate={ this.handleSongUpdate } />
-        <SongForm onSongSubmit={ this.handleSongSubmit } />
-      </div>
+      <Grid fluid={ true } className="App">
+        <Navbar fluid={ true }>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#home">My Earworms</a>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} href="#" onClick={ this.handleOpenAddSongModal }>
+              Add Song
+            </NavItem>
+          </Nav>
+        </Navbar>
+
+        {
+          this.state.data.length === 0
+          ? <p className="loading-text text-center">Loading...</p>
+          : <div>
+              <SongList
+                  data={ this.state.data }
+                  onSongDelete={ this.handleSongDelete }
+                  onSongUpdate={ this.handleSongUpdate } />
+
+              <SongForm
+                onSongSubmit={ this.handleSongSubmit }
+                openAddSongModal={ this.state.openAddSongModal }
+                handleCloseAddSongModal={ this.handleCloseAddSongModal } />
+              </div>
+        }
+        <Footer />
+      </Grid>
+
     );
   }
 }

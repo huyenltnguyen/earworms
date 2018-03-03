@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class SongForm extends Component {
   constructor(props) {
@@ -35,31 +36,63 @@ class SongForm extends Component {
       artist: '',
       url: ''
     });
+
+    this.props.handleCloseAddSongModal();
+  }
+
+  getValidationState = (str) => {
+    if (str.length > 0) {
+      return 'success';
+    }
+    return 'error';
   }
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={ this.state.title }
-          onChange={ this.handleTitleChange } />
-        <input
-          type="text"
-          name="artist"
-          placeholder="Artist"
-          value={ this.state.artist }
-          onChange={ this.handleArtistChange } />
-        <input
-          type="text"
-          name="url"
-          placeholder="Youtube URL"
-          value={ this.state.url }
-          onChange={ this.handleUrlChange } />
-        <input type="submit" />
-      </form>
+      <div>
+        <Modal show={ this.props.openAddSongModal } onHide={ this.props.handleCloseAddSongModal }>
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Song</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form className="SongForm" onSubmit={ this.handleSubmit }>
+              <ControlLabel>Title</ControlLabel>
+              <FormGroup controlId="addSongTitle" validationState={ this.getValidationState(this.state.title) }>
+                <FormControl
+                  type="text"
+                  placeholder="Title"
+                  value={ this.state.title }
+                  onChange={ this.handleTitleChange } />
+                <FormControl.Feedback />
+              </FormGroup>
+
+              <ControlLabel>Artist</ControlLabel>
+              <FormGroup controlId="addArtist" validationState={ this.getValidationState(this.state.artist) }>
+                <FormControl
+                  type="text"
+                  placeholder="Artist"
+                  value={ this.state.artist }
+                  onChange={ this.handleArtistChange }  />
+                <FormControl.Feedback />
+              </FormGroup>
+
+              <ControlLabel>Youtube URL</ControlLabel>
+              <FormGroup controlId="addYoutubeUrl" validationState={ this.getValidationState(this.state.url) }>
+                <FormControl
+                  type="text"
+                  placeholder="Youtube URL"
+                  value={ this.state.url }
+                  onChange={ this.handleUrlChange } />
+                <FormControl.Feedback />
+              </FormGroup>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={ this.props.handleCloseAddSongModal }>Close</Button>
+            <Button bsStyle="primary" onClick={ this.handleSubmit }>Add Song</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 };
