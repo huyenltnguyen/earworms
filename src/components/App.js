@@ -66,12 +66,15 @@ class App extends Component {
             <Navbar.Brand>
               <a href="#home">My Earworms</a>
             </Navbar.Brand>
+            <Navbar.Toggle />
           </Navbar.Header>
-          <Nav>
-            <NavItem eventKey={1} href="#" onClick={ this.handleOpenAddSongModal }>
-              Add Song
-            </NavItem>
-          </Nav>
+          <Navbar.Collapse>
+            <Nav>
+              <NavItem eventKey={1} href="#" onClick={ this.handleOpenAddSongModal }>
+                Add Song
+              </NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
 
         {
@@ -87,9 +90,10 @@ class App extends Component {
                 onSongSubmit={ this.handleSongSubmit }
                 openAddSongModal={ this.state.openAddSongModal }
                 handleCloseAddSongModal={ this.handleCloseAddSongModal } />
-              </div>
+            </div>
         }
-        <Footer />
+
+        <Footer items={ this.state.data.length } />
       </Grid>
 
     );

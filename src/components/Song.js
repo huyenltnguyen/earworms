@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Panel, Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Col, Panel, Dropdown, Glyphicon, MenuItem, Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class Song extends Component {
   constructor(props) {
@@ -8,8 +8,7 @@ class Song extends Component {
       title: this.props.title,
       artist: this.props.artist,
       url: this.props.url,
-      openEditSongModal: false,
-      buttonVisibility: 'hidden'
+      openEditSongModal: false
     };
   }
 
@@ -44,16 +43,7 @@ class Song extends Component {
   }
 
   handleSongDelete = (e) => {
-    e.preventDefault();
     this.props.onSongDelete(this.props.uniqueId);
-  }
-
-  showButton = () => {
-    this.setState({ buttonVisibility: 'visible' });
-  }
-
-  hideButton = () => {
-    this.setState({ buttonVisibility: 'hidden' });
   }
 
   handleOpenEditSongModal = () => {
@@ -76,27 +66,27 @@ class Song extends Component {
 
     return (
       <div className="Song">
-        <Col xs={6} sm={3} onMouseOver={ this.showButton } onMouseOut={ this.hideButton }>
+        <Col xs={12} sm={4}>
           <Panel>
             <Panel.Heading>
               <Panel.Title componentClass="h3">{ this.props.title } - { this.props.artist }</Panel.Title>
+              <Dropdown pullRight={ true }>
+                <Dropdown.Toggle noCaret>
+                  <Glyphicon glyph="list" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <MenuItem onSelect={ this.handleOpenEditSongModal }>
+                    <Glyphicon glyph="pencil" />Edit Song
+                  </MenuItem>
+                  <MenuItem onSelect={ this.handleSongDelete }>
+                    <Glyphicon glyph="trash" />Delete Song
+                  </MenuItem>
+                </Dropdown.Menu>
+              </Dropdown>
             </Panel.Heading>
+
             <Panel.Body>
-              <iframe src={ url } title="Youtube Video" width="100%" height="200" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
-              <Button
-                bsStyle="warning"
-                className="edit-btn"
-                style={{ visibility: this.state.buttonVisibility }}
-                onClick={ this.handleOpenEditSongModal }>
-                Edit
-              </Button>
-              <Button
-                bsStyle="danger"
-                className="delete-btn"
-                style={{ visibility: this.state.buttonVisibility }}
-                onClick={ this.handleSongDelete }>
-                Delete
-              </Button>
+              <iframe src={ url } title="Youtube Video" width="100%" height="220" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
             </Panel.Body>
           </Panel>
         </Col>

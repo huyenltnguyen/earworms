@@ -12,8 +12,6 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .App {
@@ -36,13 +34,18 @@ body {
 /*---------------------------*/
 /*      SONG COMPONENT       */
 /*---------------------------*/
-.edit-btn,
-.delete-btn {
-  margin: 6px 0;
+.panel-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
-.edit-btn {
-  margin-right: 5px;
+.panel-heading .dropdown {
+  align-self: flex-end;
+}
+
+.dropdown-menu .glyphicon {
+  margin-right: 8px;
 }
 
 /*---------------------------*/
@@ -50,7 +53,6 @@ body {
 /*---------------------------*/
 .Footer {
   color: #f8f8f8;
-  align-self: flex-end;
 }
 
 .Footer a {
